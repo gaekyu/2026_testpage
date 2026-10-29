@@ -3,34 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>인터넷활용 실습 템플릿</title>
+  <title>한동규 | Home</title>
+  <!-- 저장된 테마(다크/라이트)를 화면이 그려지기 전에 먼저 적용해서 깜빡임을 막아요 -->
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>이름 : 한동규</h1>
-  <p class="subtitle">한 줄 소개 : 반갑습니다.</p>
-</header>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="contact.html">Contact</a>
-</nav>
-<main class="container">
-<section>
-  <h2>홈</h2>
-  <p>안녕하세요! 저는 <strong>한동규</strong> 입니다.</p>
-  <ul>
-    <li>학과/학번 : 컴퓨터정보공학과/2020202029</li>
-    <li>관심 분야 : 정보보안</li>
-    <li>기술 스택(예: HTML, CSS, JS) : 추가 예정</li>
-  </ul>
-</section>
-</main>
-<footer>
-  <small>&copy; <span id="year"></span> 이름 : 한동규</small>
-</footer>
+<div class="window">
+
+  <!-- 터미널 창 제목 줄 (오른쪽 끝에 해/달 버튼) -->
+  <div class="titlebar">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="title">dongkyu@portfolio: ~/home</span>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="라이트 모드로 전환" title="라이트 모드로 전환">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+
+  <header>
+    <h1>이름 : 한동규</h1>
+    <!-- class="typing" 이 붙은 글자는 script.js가 타자 효과로 보여줘요 -->
+    <p class="subtitle typing">미래가 불확실한 컴공3학년 한동규입니다.</p>
+  </header>
+
+  <nav>
+    <a href="index.html" aria-current="page">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>홈</h2>
+      <p class="cmd">whoami</p>
+      <p class="out">안녕하세요! 저는 <strong>한동규</strong> 입니다.</p>
+
+      <p class="cmd">cat info.txt</p>
+      <ul>
+        <li>학과/학번 : 컴퓨터정보공학과/2020202029</li>
+        <li>관심 분야 : 정보보안</li>
+        <li>기술 스택(예: HTML, CSS, JS) : 추가 예정</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- 카피라이트: 코드 주석처럼 -->
+  <footer>
+    <p class="copyright">/* &copy; <span id="year" class="hl"></span> 한동규. All rights reserved. */</p>
+    <p class="built">// built with <span class="hl">HTML</span> · <span class="hl">CSS</span> · <span class="hl">JavaScript</span></p>
+  </footer>
+
+</div>
 <script src="script.js"></script>
 </body>
 </html>

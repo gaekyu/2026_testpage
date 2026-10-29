@@ -3,41 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>인터넷활용 실습 템플릿</title>
+  <title>한동규 | Contact</title>
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>이름 : 한동규</h1>
-  <p class="subtitle">한 줄 소개 : 반갑습니다.</p>
-</header>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="contact.html">Contact</a>
-</nav>
-<main class="container">
-<section>
-  <h2>Contact</h2>
-  <ul>
-    <li>이메일 : plymer48@naver.com / plymer48@kw.ac.kr</li>
-    <li>GitHub : </li>
-    <li>기타 링크(블로그/노션 등) :</li>
-  </ul>
-  <!-- 아래는 정말 기본 예시 폼입니다. JS 없이도 동작하지 않아도 되며, 형태만 제공합니다. -->
-  <form class="contact-form" onsubmit="return false;">
-    <label>이름</label>
-    <input type="text" placeholder="이름을 입력하세요">
-    <label>메시지</label>
-    <textarea rows="4" placeholder="메시지를 입력하세요"></textarea>
-    <button type="submit">보내기 (동작X, 형태만)</button>
-  </form>
-</section>
-</main>
-<footer>
-  <small>&copy; <span id="year"></span> 이름 : 한동규</small>
-</footer>
+<div class="window">
+
+  <div class="titlebar">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="title">dongkyu@portfolio: ~/contact</span>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="라이트 모드로 전환" title="라이트 모드로 전환">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+
+  <header>
+    <h1>이름 : 한동규</h1>
+    <p class="subtitle typing">미래가 불확실한 컴공3학년 한동규입니다.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html" aria-current="page">Contact</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Contact</h2>
+      <p class="cmd">cat contact.txt</p>
+      <ul>
+        <li>이메일 : plymer48@naver.com / plymer48@kw.ac.kr</li>
+        <li>GitHub : </li>
+        <li>기타 링크(블로그/노션 등) :</li>
+      </ul>
+
+      <!-- 형태만 있는 예시 폼입니다. 실제로 전송되지는 않아요. -->
+      <form class="contact-form" onsubmit="return false;">
+        <label>이름</label>
+        <input type="text" placeholder="이름을 입력하세요">
+        <label>메시지</label>
+        <textarea rows="4" placeholder="메시지를 입력하세요"></textarea>
+        <button type="submit">보내기 (동작X, 형태만)</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p class="copyright">/* &copy; <span id="year" class="hl"></span> 한동규. All rights reserved. */</p>
+    <p class="built">// built with <span class="hl">HTML</span> · <span class="hl">CSS</span> · <span class="hl">JavaScript</span></p>
+  </footer>
+
+</div>
 <script src="script.js"></script>
 </body>
 </html>

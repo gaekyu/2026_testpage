@@ -1,91 +1,266 @@
 /* =============================================================
-   색상 테마는 "여기"에서 바꿉니다. (파랑 계열 기본)
-   원하는 색상 코드로 아래 4가지만 바꿔보세요.
+   테마 색상표
+   - 다크 모드(기본): 검은 배경 + 초록 글씨 (터미널)
+   - 라이트 모드    : 흰 배경 + 코드 에디터(VS Code 같은) 문법 색상
+   색을 바꾸고 싶으면 아래 변수 값만 바꾸면 전체가 바뀌어요.
    ------------------------------------------------------------- */
+
+/* ---------- 다크 모드 (기본값) ---------- */
 :root {
-  --primary: #1e5bb8;      /* 메인 포인트 색상 */
-  --primary-dark: #194c98; /* 호버/진한 포인트 */
-  --bg: #f7f9fc;           /* 전체 배경 색 */
-  --text: #222222;         /* 본문 글자 색 */
+  --bg: #050805;          /* 페이지 배경 */
+  --panel: #0a0f0a;       /* 터미널 창 안쪽 배경 */
+  --titlebar: #0d160d;    /* 창 제목 줄 배경 */
+  --border: #14461f;      /* 테두리 */
+  --hover-bg: #0e1a0e;    /* 박스에 마우스 올렸을 때 */
+  --input-bg: #000000;    /* 입력창 배경 */
+  --placeholder: #1b6b30; /* 입력창 안내 글씨 */
+
+  /* 글씨 색 (다크 모드는 전부 초록 계열) */
+  --c-text: #39ff6a;      /* 기본 글씨 */
+  --c-head: #39ff6a;      /* 제목 */
+  --c-prompt: #1fae48;    /* $ 기호, 한줄소개 */
+  --c-cmd: #39ff6a;       /* 명령어 (whoami 등) */
+  --c-strong: #39ff6a;    /* 강조 글씨 */
+  --c-link: #39ff6a;      /* 링크 */
+  --c-dim: #1fae48;       /* 주석 같은 덜 중요한 글씨 */
+
+  --accent: #39ff6a;      /* 버튼/활성 메뉴 배경 */
+  --on-accent: #000000;   /* accent 위에 올라가는 글씨 */
+  --glow: 0 0 6px rgba(57, 255, 106, .55);      /* 글자 번짐 */
+  --shadow: 0 0 24px rgba(57, 255, 106, .12);   /* 창 그림자 */
+  --scan: rgba(0, 0, 0, .18);                   /* 옛날 모니터 가로줄 */
+}
+
+/* ---------- 라이트 모드 (코드 에디터 색) ---------- */
+:root[data-theme="light"] {
+  --bg: #eceff3;
+  --panel: #ffffff;
+  --titlebar: #f6f8fa;
+  --border: #d0d7de;
+  --hover-bg: #f6f8fa;
+  --input-bg: #ffffff;
+  --placeholder: #8c959f;
+
+  --c-text: #24292f;      /* 기본 글씨: 진한 회색 */
+  --c-head: #0550ae;      /* 제목: 파랑 (키워드 색) */
+  --c-prompt: #116329;    /* $ 기호, 한줄소개: 초록 (문자열 색) */
+  --c-cmd: #8250df;       /* 명령어: 보라 (함수 색) */
+  --c-strong: #953800;    /* 강조: 주황 갈색 */
+  --c-link: #0969da;      /* 링크: 밝은 파랑 */
+  --c-dim: #6e7781;       /* 주석: 회색 */
+
+  --accent: #0969da;
+  --on-accent: #ffffff;
+  --glow: none;           /* 라이트에서는 글자 번짐 끄기 */
+  --shadow: 0 4px 20px rgba(31, 35, 40, .12);
+  --scan: rgba(0, 0, 0, 0);
 }
 /* ============================================================= */
 
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
   background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+  color: var(--c-text);
+  /* monospace = 글자 폭이 모두 같은 코딩용 글꼴 */
+  font-family: "D2Coding", "Consolas", "Courier New", monospace;
+  line-height: 1.7;
+  padding: 1.5rem 1rem;
+  transition: background .25s, color .25s;
 }
 
-header {
-  padding: 2rem 1rem;
-  text-align: center;
-  background: var(--primary);
-  color: #ffffff;
+/* 화면 전체에 아주 옅은 가로줄 (다크 모드에서만 보여요) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;   /* 클릭을 방해하지 않게 */
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 2px,
+    var(--scan) 3px
+  );
 }
-header .subtitle { margin-top: .25rem; opacity: .95; }
 
-nav {
-  background: var(--primary-dark);
+/* ---------- 터미널 창 ---------- */
+.window {
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: background .25s, border-color .25s;
+}
+
+/* 창 맨 위 제목 줄 (● ● ●  제목 ........ 해/달 버튼) */
+.titlebar {
   display: flex;
-  gap: 1rem;
-  padding: .75rem 1rem;
-  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .9rem;
+  background: var(--titlebar);
+  border-bottom: 1px solid var(--border);
+  font-size: .85rem;
+  color: var(--c-dim);
+}
+.dot { width: 11px; height: 11px; border-radius: 50%; background: var(--c-dim); opacity: .6; }
+.titlebar .title { margin-left: .5rem; }
+
+/* ---------- 해/달 테마 버튼 ---------- */
+.theme-toggle {
+  margin-left: auto;          /* 남는 공간을 왼쪽에 몰아서 버튼을 오른쪽 끝으로 */
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--c-text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.theme-toggle:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* 다크일 땐 해(☀)를 보여주고, 라이트일 땐 달(☾)을 보여줘요 */
+.icon-moon { display: none; }
+:root[data-theme="light"] .icon-sun { display: none; }
+:root[data-theme="light"] .icon-moon { display: block; }
+
+/* ---------- 헤더 ---------- */
+header { padding: 1.5rem 1.5rem .5rem; }
+header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--c-head);
+  text-shadow: var(--glow);
+}
+header .subtitle {
+  margin: .4rem 0 0;
+  min-height: 1.7em;      /* 글자가 타자로 나오는 동안 아래 내용이 안 흔들리게 */
+  color: var(--c-prompt);
+}
+
+/* 타자 칠 때 뒤에 붙는 깜빡이는 커서 */
+.typing::after {
+  content: "█";
+  margin-left: 2px;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- 메뉴 ---------- */
+nav {
+  display: flex;
   flex-wrap: wrap;
+  gap: .5rem;
+  padding: .75rem 1.5rem;
+  border-bottom: 1px dashed var(--border);
 }
 nav a {
-  color: #ffffff;
+  color: var(--c-text);
   text-decoration: none;
-  font-weight: 600;
-  padding: .25rem .5rem;
+  padding: .1rem .6rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
 }
-nav a:hover { text-decoration: underline; }
+nav a::before { content: "[ "; color: var(--c-dim); }
+nav a::after  { content: " ]"; color: var(--c-dim); }
+nav a:hover { background: var(--accent); color: var(--on-accent); }
+nav a:hover::before, nav a:hover::after { color: var(--on-accent); }
+/* 지금 보고 있는 페이지는 색을 반전 */
+nav a[aria-current="page"] { background: var(--accent); color: var(--on-accent); }
+nav a[aria-current="page"]::before,
+nav a[aria-current="page"]::after { color: var(--on-accent); }
 
-.container {
-  max-width: 900px;
-  margin: 1.5rem auto;
-  padding: 1rem;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+/* ---------- 본문 ---------- */
+main { padding: 1.5rem; }
+section { margin-bottom: 1.5rem; }
+h2, h3 { margin: 1.2rem 0 .5rem; font-weight: 700; text-shadow: var(--glow); }
+h2 { font-size: 1.15rem; color: var(--c-head); }
+h3 { font-size: 1rem; color: var(--c-dim); }
+
+/* 명령어 줄:  $ whoami  */
+.cmd { margin: 1rem 0 .3rem; color: var(--c-cmd); }
+.cmd::before { content: "$ "; color: var(--c-prompt); }
+.out { margin: 0 0 .5rem 1.2rem; }   /* 명령어 결과는 살짝 들여쓰기 */
+
+ul, ol { margin: .3rem 0 .8rem; padding-left: 2.2rem; }
+li::marker { color: var(--c-dim); }
+strong { color: var(--c-strong); text-shadow: var(--glow); }
+a { color: var(--c-link); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { background: var(--accent); color: var(--on-accent); text-decoration: none; }
+
+/* ---------- 포트폴리오 프로젝트 박스 ---------- */
+.project {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: .8rem 1rem;
+  margin: .8rem 0;
+  transition: background .2s;
 }
+.project:hover { background: var(--hover-bg); }   /* 마우스를 올리면 살짝 밝아짐 */
+.project .name { font-weight: 700; color: var(--c-strong); text-shadow: var(--glow); }
+.project .name::before { content: "drwxr-xr-x  "; color: var(--c-dim); font-weight: 400; text-shadow: none; }
 
-section { margin-bottom: 1rem; }
-h1, h2, h3 { margin: .2rem 0 .6rem; }
-
-.contact-form {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: .5rem;
-  margin-top: 1rem;
-}
+/* ---------- 연락처 폼 ---------- */
+.contact-form { display: grid; gap: .5rem; margin-top: 1rem; }
+label { color: var(--c-dim); }
+label::before { content: "> "; }
 input, textarea {
   width: 100%;
   padding: .6rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--c-text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
   font: inherit;
+  caret-color: var(--accent);
 }
-button {
-  padding: .6rem .8rem;
-  border: none;
-  border-radius: 6px;
-  background: var(--primary);
-  color: #fff;
+input::placeholder, textarea::placeholder { color: var(--placeholder); }
+input:focus, textarea:focus { outline: 1px solid var(--accent); box-shadow: var(--glow); }
+
+.contact-form button {
+  justify-self: start;
+  padding: .5rem 1rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font: inherit;
   cursor: pointer;
-  font-weight: 600;
 }
-button:hover { background: var(--primary-dark); }
+.contact-form button:hover { background: var(--accent); color: var(--on-accent); }
 
+/* ---------- 푸터 (카피라이트) ---------- */
+/* 코드의 주석처럼 보이게 꾸민 카피라이트 */
 footer {
+  padding: 1.1rem 1.5rem 1.4rem;
+  border-top: 1px dashed var(--border);
   text-align: center;
-  padding: 2rem 1rem;
-  color: #666;
+  font-size: .85rem;
+  color: var(--c-dim);
+}
+footer p { margin: 0; }
+footer .built { margin-top: .15rem; opacity: .85; }
+footer .hl { color: var(--c-strong); }   /* 연도, 기술 이름 강조 */
+
+/* ---------- 반응형 (작은 화면) ---------- */
+@media (max-width: 600px) {
+  body { padding: .75rem .5rem; }
+  header h1 { font-size: 1.3rem; }
+  main, header, nav, footer { padding-left: 1rem; padding-right: 1rem; }
 }
 
-@media (max-width: 600px) {
-  header h1 { font-size: 1.25rem; }
-  .container { margin: 1rem; padding: .75rem; }
+/* "동작 줄이기" 설정을 켠 사용자에게는 깜빡임과 전환 효과를 끄기 */
+@media (prefers-reduced-motion: reduce) {
+  .typing::after { animation: none; }
+  body, .window, .project { transition: none; }
 }
