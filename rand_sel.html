@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Selector</title>
+  <script>try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') { document.documentElement.setAttribute('data-theme', t); } } catch (e) { }</script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="window">
+
+    <div class="titlebar">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="title">dongkyu@portfolio: ~/about</span>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="라이트 모드로 전환" title="라이트 모드로 전환">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      </button>
+    </div>
+
+    <header>
+      <h1>이름 : 한동규</h1>
+      <p class="subtitle typing">미래가 불확실한 컴공3학년 한동규입니다.</p>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <main>
+      <section>
+        <h2>String + Array + Math 조합: 내맘대로 뽑기</h2>
+        <script>
+          // 메뉴 입력 단계
+          let defaultList = "제육볶음,돈까스,순대국,김치찌개,햄버거,초밥,파스타,샐러드,떡볶이,마라탕";
+          let inputString = prompt("항목을 콤마(,)로 구분하여 입력하세요.", defaultList);
+
+          // 취소를 누른 경우
+          if (!inputString) {
+            document.write("<h3>뽑기를 취소합니다.</h3>");
+          } else {
+            // 입력 받은 문자열을 콤마를 기준으로 배열로 전환
+            let items = inputString.split(',');
+
+            // 랜덤으로 선택
+            let index = Math.floor(Math.random() * items.length);
+
+            //결과 출력
+            document.write("<h3>입력한 항목 (총 " + items.length + "개) :</h3>");
+            document.write("<p>" + inputString + "</p>");
+            document.write("<hr>");
+
+            // 공백 제거
+            let choice = items[index].trim();
+
+            document.write("<h1> " + choice + " !!!!</h1>");
+            document.write("<p><i>새로고침(F5)을 눌러 다시 뽑을 수 있습니다.</i></p>");
+          }
+        </script>
+      </section>
+    </main>
+
+    <footer>
+      <p class="copyright">/* &copy; <span id="year" class="hl"></span> 한동규. All rights reserved. */</p>
+      <p class="built">// built with <span class="hl">HTML</span> · <span class="hl">CSS</span> · <span
+          class="hl">JavaScript</span></p>
+    </footer>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
